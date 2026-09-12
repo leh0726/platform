@@ -211,7 +211,7 @@ def fetch_api_thread():
             if up_trains and up_trains[0]['arvlCd'] in ["0", "1", "2", "3", "4"]:
                 current_interval = 20
             else:
-                current_interval = 30
+                current_interval = 10
                 
         except Exception as e:
             print(f"API 에러: {e}")
