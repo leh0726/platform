@@ -40,7 +40,7 @@ REM  --> Check for permissions
 
 REM --> If error flag set, we do not have admin.
 if '%errorlevel%' NEQ '0' (
-    echo 관리자 권한으로 프로그램을 다시 시작하는 중입니다.
+    echo 관리자 권한을 얻는 중입니다. 잠시 기다려 주십시오.
     goto UACPrompt
 ) else ( goto gotAdmin )
 
@@ -63,7 +63,7 @@ echo 1. 프로그램 시작(Launch Program)
 echo 2. API 키 설정(Set API Key)
 echo 3. 대상 역 설정(Set Target Station)
 echo 4. 종료(Exit)
-set /p a=선택(Select): 
+set /p a= 선택(Select): 
 if %a%==1 goto run
 if %a%==2 goto api
 if %a%==3 goto stn
@@ -73,20 +73,21 @@ goto start
 :run
 cls
 start ./main.exe
+exit
 :api
 cls
-echo 서울열린데이터광장에서 발급받은 API키를 입력해주세요.
+echo 서울열린데이터광장에서 발급받은 API키를 입력하여 주십시오.
 echo Please enter the API key.
-set /p b=입력(Enter):
-echo %b%>>"./api_key.txt"
+set /p b= 입력(Enter):
+echo %b%>"./api_key.txt"
 set b=
 goto start
 :stn
 cls
-echo 전광판에 표시할 역 이름을 입력해주세요.
+echo 역 이름을 입력하여 주십시오. 수도권 전철 1호선만 지원합니다.
 echo Please enter the station name.
-set /p c=입력(Enter):
-echo %c%>>"./stn_to_show.txt"
+set /p c= 입력(Enter):
+echo %c%>"./stn_to_show.txt"
 set c=
 goto start
 :exit

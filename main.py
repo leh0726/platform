@@ -10,7 +10,6 @@ import os
 # 1. API 및 기본 설정 (사용자 커스텀 옵션)
 # ==========================================
 def load_stn():
-    # .exe 환경과 .py 환경의 실행 경로 구분
     if getattr(sys, 'frozen', False):
         base_path = os.path.dirname(sys.executable)
     else:
@@ -18,23 +17,28 @@ def load_stn():
         
     key_file_path = os.path.join(base_path, "stn_to_show.txt")
     
-    # 파일이 없으면 안내 문구를 넣어서 새로 생성
     if not os.path.exists(key_file_path):
         with open(key_file_path, "w", encoding="utf-8") as f:
             f.write("")
             
-    # 키 읽어오기
-    with open(key_file_path, "r", encoding="utf-8") as f:
-        key = f.read().strip()
-        
-    # 유효성 검사 (비어있거나 기본값이면 메모장 실행 후 종료)
+    # 💡 여러 인코딩 형식을 순차적으로 시도하여 파일 읽기
+    key = ""
+    encodings = ['utf-8', 'cp949', 'utf-8-sig', 'utf-16']
+    
+    for enc in encodings:
+        try:
+            with open(key_file_path, "r", encoding=enc) as f:
+                key = f.read().strip()
+            break  # 성공적으로 읽으면 반복문 탈출
+        except UnicodeDecodeError:
+            continue  # 현재 인코딩으로 실패하면 다음 인코딩 시도
+            
     if not key or key == "" or key == "sample":
         sys.exit()
         
     return key
 
 def load_api_key():
-    # .exe 환경과 .py 환경의 실행 경로 구분
     if getattr(sys, 'frozen', False):
         base_path = os.path.dirname(sys.executable)
     else:
@@ -42,16 +46,22 @@ def load_api_key():
         
     key_file_path = os.path.join(base_path, "api_key.txt")
     
-    # 파일이 없으면 안내 문구를 넣어서 새로 생성
     if not os.path.exists(key_file_path):
         with open(key_file_path, "w", encoding="utf-8") as f:
             f.write("")
             
-    # 키 읽어오기
-    with open(key_file_path, "r", encoding="utf-8") as f:
-        key = f.read().strip()
-        
-    # 유효성 검사 (비어있거나 기본값이면 메모장 실행 후 종료)
+    # 💡 여러 인코딩 형식을 순차적으로 시도하여 파일 읽기
+    key = ""
+    encodings = ['utf-8', 'cp949', 'utf-8-sig', 'utf-16']
+    
+    for enc in encodings:
+        try:
+            with open(key_file_path, "r", encoding=enc) as f:
+                key = f.read().strip()
+            break  # 성공적으로 읽으면 반복문 탈출
+        except UnicodeDecodeError:
+            continue  # 현재 인코딩으로 실패하면 다음 인코딩 시도
+            
     if not key or key == "" or key == "sample":
         sys.exit()
         
