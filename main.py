@@ -102,7 +102,7 @@ current_interval = 15
 WIDTH, HEIGHT = 1200, 300
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("지하철 실시간 전광판")
+pygame.display.set_caption("SubwayPlatform")
 
 BLACK  = (10, 10, 10)
 YELLOW = (235, 175, 30)
