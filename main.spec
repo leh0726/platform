@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['C:/SubwayArrival_GITHUB/main.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],

@@ -29,12 +29,6 @@ def load_stn():
         
     # 유효성 검사 (비어있거나 기본값이면 메모장 실행 후 종료)
     if not key or key == "" or key == "sample":
-        print("호출할 역 이름을 한글로 입력해 주세요.")
-        try:
-            os.startfile(key_file_path)  # Windows 내장 기능으로 파일 열기
-        except AttributeError:
-            import subprocess
-            subprocess.call(['notepad.exe', key_file_path])
         sys.exit()
         
     return key
@@ -51,20 +45,14 @@ def load_api_key():
     # 파일이 없으면 안내 문구를 넣어서 새로 생성
     if not os.path.exists(key_file_path):
         with open(key_file_path, "w", encoding="utf-8") as f:
-            f.write("여기에_API_키를_입력하세요")
+            f.write("")
             
     # 키 읽어오기
     with open(key_file_path, "r", encoding="utf-8") as f:
         key = f.read().strip()
         
     # 유효성 검사 (비어있거나 기본값이면 메모장 실행 후 종료)
-    if not key or key == "여기에_API_키를_입력하세요" or key == "sample":
-        print("API 키를 입력해 주세요.")
-        try:
-            os.startfile(key_file_path)  # Windows 내장 기능으로 파일 열기
-        except AttributeError:
-            import subprocess
-            subprocess.call(['notepad.exe', key_file_path])
+    if not key or key == "" or key == "sample":
         sys.exit()
         
     return key
